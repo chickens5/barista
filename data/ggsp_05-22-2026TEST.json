@@ -1,7 +1,9 @@
 {
   "sources": {
-    "noaa": "live_noaa",
-    "omni": "live_omni"
+    "plasma": "https://services.swpc.noaa.gov/products/solar-wind/plasma-7-day.json",
+    "mag":    "https://services.swpc.noaa.gov/products/solar-wind/mag-7-day.json",
+    "kp":     "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json",
+    "omni":   "https://spdf.gsfc.nasa.gov/pub/data/omni/low_res_omni/omni2_2026.dat"
   },
   "counts": {
     "plasma_rows": 9681,

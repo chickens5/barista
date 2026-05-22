@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/barista/static/css/main.0c515c0d.css",
-    "main.js": "/barista/static/js/main.cf543fde.js",
+    "main.css": "/barista/static/css/main.93f231aa.css",
+    "main.js": "/barista/static/js/main.40fae778.js",
     "static/js/453.e2d526aa.chunk.js": "/barista/static/js/453.e2d526aa.chunk.js",
     "index.html": "/barista/index.html",
-    "main.0c515c0d.css.map": "/barista/static/css/main.0c515c0d.css.map",
-    "main.cf543fde.js.map": "/barista/static/js/main.cf543fde.js.map",
+    "main.93f231aa.css.map": "/barista/static/css/main.93f231aa.css.map",
+    "main.40fae778.js.map": "/barista/static/js/main.40fae778.js.map",
     "453.e2d526aa.chunk.js.map": "/barista/static/js/453.e2d526aa.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0c515c0d.css",
-    "static/js/main.cf543fde.js"
+    "static/css/main.93f231aa.css",
+    "static/js/main.40fae778.js"
   ]
 }
