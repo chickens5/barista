@@ -2,13 +2,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #0a1120;
-  --bg-card:   #0d1626;
-  --bg-card2:  #0a1120;
-  --border:    #1a2640;
-  --text:      #e2e8f0;
-  --text-dim:  #94a3b8;
-  --text-muted:#4e6280;
+  --bg:        #120530;
+  --bg-card: linear-gradient(135deg, #fbf6ff, #ffffff);
+  --bg-card2:  #2a0b33;
+  --border:    #c300ff;
+  --text:      #ffffff;
+  --text-dim:  #000000;
+  --text-muted:#000000;
 }
 
 body {
@@ -73,10 +73,13 @@ body {
 
 .header-left {
   display: flex;
+  cursor: pointer;
   background: linear-gradient(66.6deg, #22023d, rgb(124, 3, 118));
   align-items: baseline;
   gap: 12px;
 }
+
+
 
 .app-title {
   font-family: "Goldman", sans-serif;
@@ -85,10 +88,10 @@ body {
   font-weight: 800;
   letter-spacing: 0.18em;
   text-shadow:
-    0 0 5px #ffffff,
-    0 0 10px #ffffff49,
-    0 0 20px #ffffff00,
-    0 0 40px #e2ffc7;
+    0 0 5px #000000,
+    0 0 10px #00000049,
+    0 0 20px #00000000,
+    0 0 40px #000000;
   
 }
 
@@ -106,8 +109,50 @@ body {
   font-weight: 600;
   color: #ffffff;
   align-items: flex-end;
-  gap: 2px;
+  gap: 4px;
 }
+
+.header-sources {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.source-link {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 2px 7px;
+  border: 1px solid #ffffff30;
+  border-radius: 4px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.source-link:hover {
+  color: #ffffff;
+  border-color: #ffffff80;
+  background: #ffffff18;
+}
+
+.github-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3333s ease;
+}
+.github-link:hover {
+  background-color: #38f852;
+}
+
 
 /* ── File picker ────────────────────────────────────────────────────────── */
 .data-selector {
@@ -162,6 +207,16 @@ body {
   margin: 0 auto;
 }
 
+.welcome-card {
+  background: var(--bg-card2);
+  border: 3.3px solid var(--border);
+  border-radius: 6.66px;
+  padding: 24px;
+  text-align: center;
+}
+
+
+
 /* ── Stat cards grid ────────────────────────────────────────────────────── */
 .stats-row {
   display: grid;
@@ -181,21 +236,24 @@ body {
 .card,
 .stat-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 3.3px solid var(--border);
+  border-radius: 6.66px;
 }
 
 .stat-card {
   padding: 16px;
-  border-top: 3px solid #38bdf8; /* overridden inline per card */
+  border-top: 6.66px solid #38bdf8; /* overridden inline per card */
 }
 
 .stat-card-title {
-  font-size: 0.65rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-muted);
-  margin-bottom: 12px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin: 0 0 8px;
 }
 
 /* ── Current conditions card ────────────────────────────────────────────── */
@@ -264,18 +322,20 @@ body {
 
 .outlook-label {
   font-size: 0.73rem;
-  color: var(--text-muted);
+  color: #000000;
+  text-transform: uppercase;
 }
 
 .outlook-value {
   font-size: 0.98rem;
   font-weight: 600;
+  color: #000000;
   font-variant-numeric: tabular-nums;
 }
 
 .outlook-value-sm {
   font-size: 0.7rem;
-  color: var(--text-dim);
+  color: #000000;
   text-align: right;
   max-width: 140px;
   word-break: break-all;
@@ -287,8 +347,11 @@ body {
 }
 
 .section-title {
-  font-size: 0.65rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 4px 12px;
   letter-spacing: 0.12em;
   color: var(--text-muted);
   margin-bottom: 10px;
@@ -326,7 +389,7 @@ body {
 .forecast-table th {
   padding: 8px 14px;
   text-align: left;
-  font-size: 0.65rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-muted);
@@ -336,14 +399,14 @@ body {
 
 .forecast-table td {
   padding: 5px 14px;
-  border-bottom: 1px solid #111f33;
+  border-bottom: 1px solid #35085a;
 }
 
 .tr-even { background: #080e1c; }
 .tr-odd  { background: #0a1220; }
 
 .td-time {
-  color: var(--text-dim);
+  color: #ffffff;
   font-size: 0.73rem;
   font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
   white-space: nowrap;
@@ -353,8 +416,7 @@ body {
 .app-footer {
   padding: 12px 24px;
   text-align: center;
-  font-size: 0.7rem;
-  color: var(--text-muted);
+  color: #ffffff;
   border-top: 1px solid var(--border);
   letter-spacing: 0.06em;
 }

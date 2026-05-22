@@ -84,9 +84,9 @@ function ForecastChart({ times, scenarios, weighted }) {
 
   const legend = [
     { label: 'Weighted Avg', color: '#38bdf8', sw: 2.5 },
-    { label: 'Active',       color: '#f87171', sw: 1.5 },
-    { label: 'Moderate',     color: '#facc15', sw: 1.5 },
-    { label: 'Quiet',        color: '#4ade80', sw: 1.5 },
+    { label: 'Active',       color: '#ff0000', sw: 1.5 },
+    { label: 'Moderate',     color: '#ff9900', sw: 1.5 },
+    { label: 'Quiet',        color: '#189947', sw: 1.5 },
   ];
 
   return (
@@ -109,9 +109,9 @@ function ForecastChart({ times, scenarios, weighted }) {
       <text x={W - PR + 3} y={yPos(5) + 4} className="chart-label" fill="#ef4444">G1</text>
 
       {/* Scenario lines */}
-      <path d={pathD(scenarios.Quiet)}    stroke="#4ade80" strokeWidth="1.5" fill="none" opacity="0.65" />
-      <path d={pathD(scenarios.Moderate)} stroke="#facc15" strokeWidth="1.5" fill="none" opacity="0.65" />
-      <path d={pathD(scenarios.Active)}   stroke="#f87171" strokeWidth="1.5" fill="none" opacity="0.65" />
+      <path d={pathD(scenarios.Quiet)}    stroke="#189947" strokeWidth="1.5" fill="none" opacity="0.65" />
+      <path d={pathD(scenarios.Moderate)} stroke="#ff9900" strokeWidth="1.5" fill="none" opacity="0.65" />
+      <path d={pathD(scenarios.Active)}   stroke="#ff0000" strokeWidth="1.5" fill="none" opacity="0.65" />
 
       {/* Weighted average — primary line */}
       <path d={pathD(weighted)} stroke="#38bdf8" strokeWidth="2.5" fill="none" />
@@ -153,7 +153,7 @@ export default function App() {
 
   // Load the manifest of available result files
   useEffect(() => {
-    fetch('/data/data-files.json')
+    fetch(`${process.env.PUBLIC_URL}/data/data-files.json`)
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(list => {
         setFileList(list);
@@ -167,7 +167,7 @@ export default function App() {
     if (!selectedFile) return;
     setData(null);
     setError(null);
-    fetch(`/data/${selectedFile}`)
+    fetch(`${process.env.PUBLIC_URL}/data/${selectedFile}`)
       .then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
@@ -203,19 +203,36 @@ export default function App() {
       </div>
 
       {/* ── Header ── */}
+
       <header className="app-header">
-        <div className="header-left">
-          <span className="app-title">GGSP</span>
+        <div className="header-left" > 
+          <span className="app-title">GGSP~</span> 
           <span className="app-subtitle">Gabe's Geomagnetic Storm Prediction System</span>
         </div>
         
         <div className="header-right">
-          <span className="header-date">Current time: {formatUTC(latest.time)}</span>
-          <span className="header-sources">NOAA: {sources.noaa} · OMNI: {sources.omni}</span>
+          <span className="header-date">Latest: {formatUTC(latest.time)}</span>
+          <div className="header-sources">
+            <a className="source-link" href={sources.plasma} target="_blank" rel="noreferrer">Plasma</a>
+            <a className="source-link" href={sources.mag}    target="_blank" rel="noreferrer">Mag</a>
+            <a className="source-link" href={sources.kp}     target="_blank" rel="noreferrer">Kp</a>
+            <a className="source-link" href={sources.omni}   target="_blank" rel="noreferrer">OMNI</a>
+          </div>
         </div>
       </header>
 
+{/* ── Main content ── */}
       <main className="app-main">
+
+
+      <div className ='welcome-card'>
+
+      <h1>Welcome! </h1>
+        <h4 style={{ padding: '5px' }}>GGSP predicts geomagnetic storms with real-time data analyzed through a linear regression model.</h4>
+        <p>If you want to learn more about the ML aspects of our model, the repository can be found here:</p>
+          <a className="github-link"href="https://github.com/chickens5/SUN">GitHub</a>
+        
+      </div>
 
         <div className="data-selector">
           {fileList.length > 1 && (
@@ -299,9 +316,9 @@ export default function App() {
               <thead>
                 <tr>
                   <th>Time (UTC)</th>
-                  <th style={{ color: '#4ade80' }}>Quiet</th>
-                  <th style={{ color: '#facc15' }}>Moderate</th>
-                  <th style={{ color: '#f87171' }}>Active</th>
+                  <th style={{ color: '#189947' }}>Quiet</th>
+                  <th style={{ color: '#ff9900' }}>Moderate</th>
+                  <th style={{ color: '#ff0000' }}>Active</th>
                   <th style={{ color: '#38bdf8' }}>Weighted</th>
                 </tr>
               </thead>
@@ -331,7 +348,7 @@ export default function App() {
       </main>
 
       <footer className="app-footer">
-        GGSP · ML Kp Prediction · Data: NOAA SWPC &amp; OMNI
+       <h3>GGSP · ML Kp Prediction | Data: NOAA SWPC + OMNI</h3>
       </footer>
     </div>
   );
