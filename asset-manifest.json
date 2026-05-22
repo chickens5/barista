@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/barista/static/css/main.0c515c0d.css",
+    "main.js": "/barista/static/js/main.1c6fbbd9.js",
+    "static/js/453.e2d526aa.chunk.js": "/barista/static/js/453.e2d526aa.chunk.js",
+    "index.html": "/barista/index.html",
+    "main.0c515c0d.css.map": "/barista/static/css/main.0c515c0d.css.map",
+    "main.1c6fbbd9.js.map": "/barista/static/js/main.1c6fbbd9.js.map",
+    "453.e2d526aa.chunk.js.map": "/barista/static/js/453.e2d526aa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c515c0d.css",
+    "static/js/main.1c6fbbd9.js"
+  ]
+}
