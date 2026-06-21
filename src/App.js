@@ -228,8 +228,9 @@ export default function App() {
       <div className ='welcome-card'>
 
       <h1>Welcome! </h1>
-        <h4 style={{ padding: '5px' }}>GGSP predicts geomagnetic storms with real-time data analyzed through a linear regression model.</h4>
-        <p>If you want to learn more about the ML aspects of our model, the repository can be found here:</p>
+        <h4 style={{ padding: '5px' }}>GGSP predicts geomagnetic storms with real-time data analyzed through a linear regression model in the GGSP pipeline at my other repo.</h4>
+        <p>If you want to check it out (*im going to update the Jupypter notebook, I have been building the pipeline/model (Newell's Coupling Function and such)in python directly*),
+           the repository can be found here:</p>
           <a className="github-link"href="https://github.com/chickens5/SUN">GitHub</a>
         
       </div>
