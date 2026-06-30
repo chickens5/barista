@@ -4,7 +4,7 @@
   { "label": "1985 – 2020",      "file": "ggsp_1985_2020.json" },
   { "label": "June 10 2026",      "file": "06-10-2026.json" },
   { "label": "June 20 2026",      "file": "06-20-2026.json" },
-  { "label": "June 27 2026",      "file": "40yrs-Jun27-2026.json" }
-  
+  { "label": "June 27 2026",      "file": "40yrs-Jun27-2026.json" },
+  { "label": "June 29 2026",      "file": "35yrJun29Test.json" }
 ]
 
