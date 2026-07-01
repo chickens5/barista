@@ -1,10 +1,9 @@
 [
-  { "label": "May 22 2026",      "file": "ggsp_05-22-2026.json" },
-  { "label": "TEST May 22 2026", "file": "ggsp_05-22-2026TEST.json" },
-  { "label": "1985 – 2020",      "file": "ggsp_1985_2020.json" },
-  { "label": "June 10 2026",      "file": "06-10-2026.json" },
-  { "label": "June 20 2026",      "file": "06-20-2026.json" },
-  { "label": "June 27 2026",      "file": "40yrs-Jun27-2026.json" }
+  { "label": "July 1 2026 (2019'-2025')",      "file": "jul1-2019-2025.json" },
+  { "label": "June 2026 (85'-20')",      "file": "1985-2020.json" },
+  {"label": "June 2026 (1990-2025)",      "file": "1990-2025.json" },
   { "label": "June 29 2026",      "file": "35yrJun29Test.json" }
+
+ 
 ]
 

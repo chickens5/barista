@@ -150,6 +150,7 @@ export default function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [data,        setData]        = useState(null);
   const [error,       setError]       = useState(null);
+  const [overviewOpen, setOverviewOpen] = useState(false);
 
   // Load the manifest of available result files
   useEffect(() => {
@@ -169,18 +170,21 @@ export default function App() {
     setError(null);
     fetch(`${process.env.PUBLIC_URL}/data/${selectedFile}`)
       .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        if (!r.ok) throw new Error(`"${selectedFile}" could not be found (HTTP ${r.status}). The file may have been removed or the name in data-files.json is incorrect.`);
         return r.json();
       })
-      .then(setData)
+      .then(json => {
+        const missing = ['latest', 'forecast', 'metrics', 'counts', 'sources'].filter(k => !(k in json));
+        if (missing.length > 0) {
+          throw new Error(`"${selectedFile}" is missing required fields: ${missing.join(', ')}. The file format does not match what GGSP expects.`);
+        }
+        setData(json);
+      })
       .catch(e => setError(e.message));
   }, [selectedFile]);
 
-  if (error) return <div className="app-state app-error">Failed to load data: {error}</div>;
-  if (!data)  return <div className="app-state app-loading">Loading…</div>;
-
-  const { latest, forecast, metrics, counts, sources } = data;
-  const catColor = kpColor(latest.predicted_kp);
+  const { latest, forecast, metrics, counts, sources } = data ?? {};
+  const catColor = data ? kpColor(latest.predicted_kp) : null;
 
   return (
     <div className="app">
@@ -208,37 +212,88 @@ export default function App() {
         <div className="header-left" > 
           <span className="app-title">GGSP~</span> 
           <span className="app-subtitle">Gabe's Geomagnetic Storm Prediction System</span>
-        </div>
-        
+       </div>
+
         <div className="header-right">
-          <span className="header-date">Latest: {formatUTC(latest.time)}</span>
+          {data && <span className="header-date">Latest: {formatUTC(latest.time)}</span>}
           <div className="header-sources">
-            <a className="source-link" href={sources.plasma} target="_blank" rel="noreferrer">Plasma</a>
-            <a className="source-link" href={sources.mag}    target="_blank" rel="noreferrer">Mag</a>
-            <a className="source-link" href={sources.kp}     target="_blank" rel="noreferrer">Kp</a>
-            <a className="source-link" href={sources.omni}   target="_blank" rel="noreferrer">OMNI</a>
+            <a className="source-link" href={sources?.plasma} target="_blank" rel="noreferrer">Plasma</a>
+            <a className="source-link" href={sources?.mag}    target="_blank" rel="noreferrer">Mag</a>
+            <a className="source-link" href={sources?.kp}     target="_blank" rel="noreferrer">Kp</a>
+            <a className="source-link" href={sources?.omni}   target="_blank" rel="noreferrer">OMNI</a>
           </div>
         </div>
       </header>
 
 {/* ── Main content ── */}
       <main className="app-main">
+{/* ── Inline error banner ── */}
+        {error && (
+          <div className="app-error">
+            <strong>Failed to load data</strong>
+            <span>{error}</span>
+            <button
+              onClick={() => window.location.reload()}
+              style={{ alignSelf: 'flex-start', marginTop: '0.5rem', padding: '0.4rem 1rem', cursor: 'pointer', borderRadius: '6px', border: 'none', background: '#38bdf8', color: '#0f172a', fontWeight: 600 }}
+            >
+              Reload Page
+            </button>
+          </div>
+        )}
 
+        {/* ── Loading indicator ── */}
+        {!data && !error && (
+          <div className="app-state app-loading">Loading…</div>
+        )}
 
       <div className ='welcome-card'>
 
       <h1>Welcome! </h1>
-        <h4 style={{ padding: '5px' }}>GGSP predicts geomagnetic storms with real-time data analyzed through a linear regression model in the GGSP pipeline at my other repo.</h4>
-        <p>If you want to check it out (*im going to update the Jupypter notebook, I have been building the pipeline/model (Newell's Coupling Function and such)in python directly*),
-           the repository can be found here:</p>
+        <h4 style={{ padding: '5px' }}>GGSP predicts geomagnetic storms through current NOAA space weather conditions tested on physics based features utilizing a linear regression model in the GGSP pipeline (the pipeline is very much a work in progress and still needs to be broken down into more digestible pieces).</h4>
+        <p>If you want to check it out,
+           the repository can be found clicking the button below:</p>
           <a className="github-link"href="https://github.com/chickens5/SUN">GitHub</a>
         
       </div>
+      
+        <div className="ggsp-overview">
+          <button
+            className="ggsp-overview-toggle"
+            onClick={() => setOverviewOpen(o => !o)}
+            aria-expanded={overviewOpen}
+          >
+            <span>Solar Cycle, Sunspots, CMEs &amp; Geomagnetic Storms</span>
+            <svg
+              className={`ggsp-overview-chevron${overviewOpen ? ' open' : ''}`}
+              viewBox="0 0 24 24" width="18" height="18"
+              fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          {overviewOpen && (
+            <div className="ggsp-overview-body">
+              <p className="ggsp-overview-note">
+                Currently nearing Solar Minimum — several factors affect geomagnetic storm potential.
+                Analyzing the cycle&apos;s maxima and minima helps establish patterns for predicting future activity.
+              </p>
+              <div className="ggsp-overview-images">
+                <img src={`${process.env.PUBLIC_URL}/assets/solar-cycle-sunspot-numb.png`} alt="Solar Cycle Sunspot Numbers" className="ggsp-overview-image" />
+                <img src={`${process.env.PUBLIC_URL}/assets/solar-cycle-f107cm-radio.png`} alt="Solar Cycle F10.7cm Radio Flux" className="ggsp-overview-image" />
+              </div>
+              <a className="ggsp-overview-source" href="https://www.spaceweather.gov/products/solar-cycle-progression" target="_blank" rel="noreferrer">Image Source: NOAA SpaceWeather</a>
+            </div>
+          )}
+        </div>
 
+        
+<div className ='welcome-card'>
+  <h2 style={{ margin: '6.66px', padding: '6.66px' }}>Click on any of the files to view different Geomagnetic Storm Predictions based off current date & training period.</h2>
         <div className="data-selector">
           {fileList.length > 1 && (
             <select
               className="file-picker"
+
               value={selectedFile ?? ''}
               onChange={e => setSelectedFile(e.target.value)}
             >
@@ -251,8 +306,12 @@ export default function App() {
             <span className="file-picker-label">{fileList[0].label}</span>
           )}
         </div>
+        </div>
+
+        
 
         {/* ── Top stat cards ── */}
+        {data && !error && (<>
         <div className="stats-row">
 
           <StatCard title="Current Conditions" accent={catColor}>
@@ -346,6 +405,7 @@ export default function App() {
             </table>
           </div>
         </section>
+        </>)}
       </main>
 
       <footer className="app-footer">

@@ -40,6 +40,16 @@ body {
   position: relative;
 }
 
+.app-error {
+  margin: '1rem 0';
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+}
+
 /* ── Full-page background ───────────────────────────────────────────────── */
 .app-bg {
   position: fixed;
@@ -151,6 +161,90 @@ body {
 }
 .github-link:hover {
   background-color: #38f852;
+}
+
+.ggsp-overview {
+  background: var(--bg-card2);
+  border: 3.3px solid var(--border);
+  border-radius: 6.66px;
+  overflow: hidden;
+}
+
+.ggsp-overview-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.ggsp-overview-toggle:hover {
+  background: #ffffff0d;
+}
+
+.ggsp-overview-chevron {
+  flex-shrink: 0;
+  color: var(--border);
+  transition: transform 0.25s ease;
+}
+
+.ggsp-overview-chevron.open {
+  transform: rotate(180deg);
+}
+
+.ggsp-overview-body {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid #ffffff1a;
+}
+
+.ggsp-overview-note {
+  padding-top: 14px;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  line-height: 1.65;
+}
+
+.ggsp-overview-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.ggsp-overview-image {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #ffffff1a;
+}
+
+.ggsp-overview-source {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  align-self: flex-end;
+  transition: color 0.15s;
+}
+
+.ggsp-overview-source:hover {
+  color: #ffffff;
 }
 
 
